@@ -2,11 +2,14 @@
 Fluxo de execução:
     main -> scan(text) -> parse(tokens) -> (se válido) eval_stackcalc(tokens)
 
-Gramática (EBNF) resumida:
-    Program  = Expr ;
-    Expr     = Number | Expr , Expr , Op ;
-    Op       = "+" | "-" | "*" | "/" ;
-    Number   = "0" | NonZeroDigit , { Digit } ;
+Gramática padrão EBNF:
+    Program   = Expr ;
+    Expr      = Number | Expr , Expr , Op ;
+    Op        = "+" | "-" | "*" | "/" ;
+    Number    = "0" | NonZero , { Digit } ;
+    NonZero   = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+    Digit     = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+
 
 Ideia da pilha:
     - número => "push" na pilha
@@ -81,7 +84,7 @@ def parse(tokens):
             depth -= 1
     return len(tokens) > 0 and depth == 1
 
-# 4) (BÔNUS NÉ PAI) Avaliador — executa de fato a expressão usando uma pilha
+# 4) (BÔNUS) Avaliador — executa de fato a expressão usando uma pilha
 #    Política de divisão:
 #      - Inteira truncada para zero: divi(a, b) = int(a / b)
 #        Ex.: 7/3=2, -7/3=-2  (diferente de // que faria -7//3==-3)
@@ -93,7 +96,7 @@ def divi(a, b):
 def eval_stackcalc(tokens):
     """
     Executa a expressão RPN usando uma pilha de inteiros.
-    Pré-condição: tokens já foram validados em parse() (boa prática).
+    tokens já foram validados em parse().
     """
     st = []
     for (kind, val) in tokens:
