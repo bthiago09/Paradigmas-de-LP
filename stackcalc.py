@@ -37,7 +37,7 @@ OPS = {
 
 # Definir o que consideramos um número válido.
 # Garante que aceitamos "123" e "0", mas rejeitamos "01" ou "abc".
-INT_RE = re.compile(r'^(0|[1-9][0-9]*)$')
+INT_RE = re.compile(r'^(0|[1-9][0-9]*)$') #^[0-9]+$
 
 class LexicalError(Exception):
     pass
